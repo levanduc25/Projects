@@ -1,12 +1,15 @@
 #include <iostream>
+#include <limits>
+#include <algorithm> // để dùng std::max, std::min
 using namespace std;
 
-// Khởi tạo
 char board[3][3];
 char current_player;
 int moveCount;
+int mode; // 1 = PvP, 2 = PvC
+char ai = 'X';
+char human = 'O';
 
-// Khởi tạo bảng
 void initBoard()
 {
     for (int i = 0; i < 3; i++)
@@ -16,7 +19,6 @@ void initBoard()
     moveCount = 0;
 }
 
-// Hiển thị bảng
 void printBoard()
 {
     cout << "\n";
@@ -29,7 +31,6 @@ void printBoard()
     cout << "\n";
 }
 
-// Kiểm tra thắng
 bool checkWin(char player)
 {
     for (int i = 0; i < 3; i++)
@@ -48,7 +49,71 @@ bool checkWin(char player)
     return false;
 }
 
-// Lượt chơi
+bool isMovesLeft()
+{
+    for (int i = 0; i < 3; i++)
+        for (int j = 0; j < 3; j++)
+            if (board[i][j] == ' ')
+                return true;
+    return false;
+}
+
+int evaluate()
+{
+    if (checkWin(ai))
+        return 10;
+    if (checkWin(human))
+        return -10;
+    return 0;
+}
+
+int minimax(int depth, bool isMax)
+{
+    int score = evaluate();
+
+    if (score == 10)
+        return score - depth;
+    if (score == -10)
+        return score + depth;
+    if (!isMovesLeft())
+        return 0;
+
+    if (isMax)
+    {
+        int best = numeric_limits<int>::min();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (board[i][j] == ' ')
+                {
+                    board[i][j] = ai;
+                    best = max(best, minimax(depth + 1, false));
+                    board[i][j] = ' ';
+                }
+            }
+        }
+        return best;
+    }
+    else
+    {
+        int best = numeric_limits<int>::max();
+        for (int i = 0; i < 3; i++)
+        {
+            for (int j = 0; j < 3; j++)
+            {
+                if (board[i][j] == ' ')
+                {
+                    board[i][j] = human;
+                    best = min(best, minimax(depth + 1, true));
+                    board[i][j] = ' ';
+                }
+            }
+        }
+        return best;
+    }
+}
+
 void playerMove()
 {
     int row, col;
@@ -56,7 +121,8 @@ void playerMove()
     {
         cout << "Player " << current_player << " enter row and column (1-3 1-3): ";
         cin >> row >> col;
-        row--; col--;
+        row--;
+        col--;
 
         if (row >= 0 && row < 3 && col >= 0 && col < 3)
         {
@@ -78,7 +144,33 @@ void playerMove()
     }
 }
 
-// Đổi lượt
+void computerMove()
+{
+    int bestVal = numeric_limits<int>::min();
+    int bestRow = -1, bestCol = -1;
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            if (board[i][j] == ' ')
+            {
+                board[i][j] = ai; // FIX: dùng = chứ không phải ==
+                int moveVal = minimax(0, false);
+                board[i][j] = ' ';
+                if (moveVal > bestVal)
+                {
+                    bestRow = i;
+                    bestCol = j;
+                    bestVal = moveVal;
+                }
+            }
+        }
+    }
+    board[bestRow][bestCol] = ai;
+    moveCount++;
+}
+
 void switchPlayer()
 {
     current_player = (current_player == 'X') ? 'O' : 'X';
@@ -86,16 +178,49 @@ void switchPlayer()
 
 int main()
 {
+    cout << "Select mode: 1 = Player vs Player, 2 = Player vs Computer: ";
+    cin >> mode;
+
+    if (mode == 2)
+    {
+        cout << "Do you want to play as X or O? (X goes first): ";
+        char choice;
+        cin >> choice;
+        choice = toupper(choice);
+        if (choice == 'X')
+        {
+            human = 'X';
+            ai = 'O';
+        }
+        else
+        {
+            human = 'O';
+            ai = 'X';
+        }
+    }
+
     initBoard();
+
     while (true)
     {
         printBoard();
-        playerMove();
+
+        if (mode == 1) // Player vs Player
+        {
+            playerMove();
+        }
+        else // Player vs Computer
+        {
+            if (current_player == human)
+                playerMove();
+            else
+                computerMove();
+        }
 
         if (checkWin(current_player))
         {
             printBoard();
-            cout << "Player " << current_player << " is the winner!\n";
+            cout << "Player " << current_player << " wins!\n";
             break;
         }
 
