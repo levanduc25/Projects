@@ -1,8 +1,0 @@
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.GeneratedMSBuildEditorConfig.editorconfig
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.AssemblyInfoInputs.cache
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.AssemblyInfo.cs
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.csproj.CoreCompileInputs.cache
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.MvcApplicationPartsAssemblyInfo.cache
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.RazorAssemblyInfo.cache
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.RazorAssemblyInfo.cs
-D:\Coders\Dự Án\website\obj\Debug\net9.0\WEBSITE.sourcelink.json
