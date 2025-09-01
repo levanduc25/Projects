@@ -4,6 +4,8 @@ using WEBSITE.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
+string apiKey = builder.Configuration["openAI:ApiKey"];
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
