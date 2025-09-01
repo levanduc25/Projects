@@ -1,0 +1,18 @@
+## Build results
+bin/
+obj/
+out/
+
+## User-specific files
+*.user
+*.rsuser
+*.suo
+*.userosscache
+*.sln.docstates
+
+## VSCode / Visual Studio
+.vscode/
+.vs/
+
+## Config secrets
+appsettings.Development.json

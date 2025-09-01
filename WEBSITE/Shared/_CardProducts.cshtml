@@ -1,0 +1,39 @@
+@model List<WEBSITE.Models.Product>
+
+@foreach (var item in Model)
+{
+     var avgRating = item.Reviews.Any() ? item.Reviews.Average(r => r.Rating) : 0;
+
+    <div class="card" style="width: 18rem;">
+        <img src="@item.ImageUrl" class="card-img-top" alt="@item.Name" />
+        <div class="card-body">
+            <h5 class="card-title">@item.Name</h5>
+            <p class="card-text text-danger">@item.Price.ToString("C")</p>
+
+            @if (avgRating == 0)
+            {
+                <p class="card-text text-muted">No reviews yet</p>
+            }
+            else if (avgRating == 1)
+            {
+                <span class="text-warning">⭐</span>
+            }
+            else if (avgRating == 2)
+            {
+                <span class="text-warning">⭐⭐</span>
+            }
+            else if (avgRating == 3)
+            {
+                <span class="text-warning">⭐⭐⭐</span>
+            }
+            else if (avgRating == 4)
+            {
+                <span class="text-warning">⭐⭐⭐⭐</span>
+            }
+            else if (avgRating == 5)
+            {
+                <span class="text-warning">⭐⭐⭐⭐⭐</span>
+            }
+        </div>
+    </div>
+}

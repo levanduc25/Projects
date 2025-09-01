@@ -1,0 +1,87 @@
+<div class="p-3 border rounded-3 shadow-sm" style="width: 250px; background:#fff;">
+    <button class="btn btn-primary w-100 mb-3">+ Compose</button>
+
+    <h6 class="mb-4">My Email</h6>
+
+    <ul class="list-unstyled">
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-regular fa-envelope pe-2"></i>
+                    Inbox
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-regular fa-star pe-2"></i>
+                    Starred
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-regular fa-paper-plane pe-2"></i>
+                    Sent
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-solid fa-pen pe-2"></i>
+                    Draft
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-solid fa-triangle-exclamation pe-2"></i>
+                    Spam
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-solid fa-exclamation pe-1"></i>
+                    Important
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+        <li class="mb-3">
+            <a href="#" class="nav-link text-dark d-flex justify-content-between align-items-center">
+                <span>
+                    <i class="fa-solid fa-trash"></i>
+                    Bin
+                </span>
+                <span class="text-muted"></span>
+            </a>
+        </li>
+    </ul>
+    <h6 class="mt-4 mb-3">Labels</h6>
+    <ul class="list-unstyled" id="labelList">
+        <li class="mb-2 d-flex align-items-center label-item" onclick="this.classList.toggle('active')">
+            <span class="label-box" style="border-color:#00bfa5;"></span>
+            <span>Primary</span>
+        </li>
+        <li class="mb-2 d-flex align-items-center label-item" onclick="this.classList.toggle('active')">
+            <span class="label-box" style="border-color:#4285f4;"></span>
+            <span>Social</span>
+        </li>
+    </ul>
+
+    <!-- Nút thêm nhãn -->
+    <button class="btn p-0 mt-3 text-muted border-0 bg-transparent" onclick="addLabel()">
+        + Create New Label
+    </button>
+</div>

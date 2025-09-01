@@ -1,0 +1,167 @@
+﻿@using System.Security.Claims
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Administrator</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.0/css/all.min.css"
+          integrity="sha512-DxV+EoADOkOygM4IR9yXP8Sb2qwgidEmeqAEmDKIOfPRQZOWbXCzLC6vjbZyy0vPisbH2SyW27+ddLVCN+OMzQ=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/WEBSITE.styles.css" asp-append-version="true" />
+</head>
+
+<body class="bg-light d-flex flex-column min-vh-100">
+
+    <!-- Layout chia cột -->
+    <div class="container-fluid flex-grow-1">
+        <div class="row flex-nowrap min-vh-100">
+
+            <!-- Sidebar -->
+            <div id="sidebar" class="col-auto col-md-3 col-lg-2 px-sm-2 px-0 bg-white border-end">
+                <div class="d-flex flex-column px-3 pt-2 text-dark min-vh-100">
+                    <!-- Logo -->
+                    <a asp-area="admin" asp-controller="Home" asp-action="Index"
+                       class="d-flex justify-content-center mb-3 py-3 text-decoration-none w-100">
+                        <img src="~/Pictures/logo.png" alt="Logo" class="img-fluid" style="max-height: 50px;">
+                    </a>
+
+                    <!-- Sidebar menu -->
+                    <ul class="nav nav-pills flex-column mb-sm-auto mb-0 align-items-sm-start" id="menu">
+                        <a asp-area="Admin" asp-controller="Home" asp-action="Index" class="nav-link text-dark">
+                            <i class="fa-solid fa-gauge-high pe-5"></i>
+                            <span>Dashboard</span>
+                        </a>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Index" class="nav-link text-dark">
+                                <i class="fa-solid fa-table-cells-large pe-5"></i>
+                                <span>Products</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="Products" asp-action="Favorites" class="nav-link text-dark">
+                                <i class="fa-regular fa-heart pe-5"></i>
+                                <span>Favorites</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-area="Admin" asp-controller="ChatMessages" asp-action="Index" class="nav-link text-dark">
+                                <i class="fa-regular fa-comments pe-5"></i>
+                                <span>Inbox</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/orderlist" class="nav-link text-dark">
+                                <i class="fa-solid fa-list-check pe-5"></i>
+                                <span>Order Lists</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/stock" class="nav-link text-dark">
+                                <i class="fa-solid fa-boxes-stacked pe-5"></i>
+                                <span>Product Stock</span>
+                            </a>
+                        </li>
+                    </ul>
+
+                    <hr class="w-100">
+                    <span class="text-secondary fw-bold small">PAGES</span>
+
+                    <ul class="nav nav-pills flex-column mt-2">
+                        <li><a href="/pricing" class="nav-link text-dark"><i class="fa-solid fa-gift pe-5"></i>Pricing</a></li>
+                        <li><a href="/calendar" class="nav-link text-dark"><i class="fa-regular fa-calendar pe-5"></i>Calendar</a></li>
+                        <li><a href="/todo" class="nav-link text-dark"><i class="fa-regular fa-clipboard pe-5"></i>To-Do</a></li>
+                        <li><a href="/contact" class="nav-link text-dark"><i class="fa-solid fa-user-group pe-5"></i>Contact</a></li>
+                        <li><a href="/invoice" class="nav-link text-dark"><i class="fa-solid fa-money-bills pe-5"></i>Invoice</a></li>
+                        <li><a href="/uielement" class="nav-link text-dark"><i class="fa-solid fa-chart-simple pe-5"></i>UI Element</a></li>
+                        <li><a href="/team" class="nav-link text-dark"><i class="fa-regular fa-user pe-5"></i>Team</a></li>
+                        <li><a href="/table" class="nav-link text-dark"><i class="fa-solid fa-table-cells pe-5"></i>Table</a></li>
+                    </ul>
+
+                    <hr class="w-100">
+                    <ul class="nav flex-column">
+                        <li><a href="/settings" class="nav-link text-dark"><i class="fa-solid fa-cog pe-5"></i>Settings</a></li>
+                        <li><a asp-area="admin" asp-controller="Account" asp-action="Logout" class="nav-link text-dark"><i class="fa-solid fa-power-off pe-5"></i>Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Main content -->
+            <div class="col p-0 d-flex flex-column">
+                <!-- Header -->
+                <header class="d-flex align-items-center justify-content-between px-3 py-2 border-bottom bg-white shadow-sm">
+                    <!-- Left: Toggle + Logo -->
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Nút ẩn menu -->
+                        <button class="btn btn-light" id="sidebarToggle">
+                            <i class="fa-solid fa-bars"></i>
+                        </button>
+                    </div>
+
+                    <!-- Center: Search -->
+                    <div class="flex-grow-1 px-3 d-none d-md-block">
+                        <div class="input-group">
+                            <span class="input-group-text bg-white border-end-0">
+                                <i class="fa-solid fa-search text-secondary"></i>
+                            </span>
+                            <input type="text" class="form-control border-start-0" placeholder="Search">
+                        </div>
+                    </div>
+
+                    <!-- Right: Notification + Language + User -->
+                    <div class="d-flex align-items-center gap-3">
+                        <!-- Notification -->
+                        <div class="position-relative">
+                            <i class="fa-regular fa-bell fs-5 text-secondary"></i>
+                            <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger text-white small"></span>
+                        </div>
+
+                        <!-- Language -->
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                                <img src="https://flagcdn.com/w20/gb.png" alt="English" class="me-2">
+                                English
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#"><img src="https://flagcdn.com/w20/vn.png" class="me-2"> Tiếng Việt</a></li>
+                                <li><a class="dropdown-item" href="#"><img src="https://flagcdn.com/w20/us.png" class="me-2"> English (US)</a></li>
+                            </ul>
+                        </div>
+
+                        <!-- User -->
+                        <div class="dropdown">
+                            <button class="btn btn-light dropdown-toggle d-flex align-items-center" data-bs-toggle="dropdown">
+                                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="User" class="rounded-circle me-2" width="32" height="32">
+                                <div class="text-start">
+                                    <div class="fw-bold small">@User.FindFirst("Fullname")?.Value</div>
+                                    <div class="text-muted small">@User.FindFirst(ClaimTypes.Role)?.Value</div>
+                                </div>
+                            </button>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Profile</a></li>
+                                <li><a class="dropdown-item" href="#">Settings</a></li>
+                                <li><hr class="dropdown-divider"></li>
+                                <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- Body -->
+                <main class="p-3 flex-fill">
+                    @RenderBody()
+                </main>
+            </div>
+        </div>
+    </div>
+
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

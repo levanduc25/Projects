@@ -1,0 +1,23 @@
+@{
+    ViewData["Title"] = "Access Denied";
+    Layout = "~/Shared/_LayoutLogin.cshtml";
+}
+
+<div class="login-container">
+    <div class="row vh-100 d-flex justify-content-center align-items-center">
+        <div class="col-md-4">
+            <div class="card shadow">
+                <div class="card-body px-4 py-5 d-flex justify-content-center align-items-center flex-column">         
+                    <img src="~/pictures/404.png" alt="Access Denied" asp-append-version="true" class="img-fluid mb-3" />
+                    <h3 class="text-center fw-bold mb-4">Looks like you’ve got lost….</h3>
+
+                    <!-- Button chuyển trang -->
+                    <a asp-controller="Account" asp-area="Admin" asp-action="Login" 
+                       class="btn btn-primary w-100 p-2">
+                        Back to Dashboard
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
